@@ -23,6 +23,7 @@ class DeckDetails extends Component{
                 <TouchableOpacity
                     activeOpacity={.8}
                     style={styles.button}
+                    onPress={() => navigation.navigate('AddCard', { deck })}
                 >
                     <View>
                         <Text>
