@@ -11,7 +11,8 @@ class DeckDetails extends Component{
     }
 
     render () {
-        const { deck } = this.props.navigation.state.params
+        const { navigation } = this.props
+        const { deck } = navigation.state.params
 
         return (
             <View>
@@ -33,6 +34,7 @@ class DeckDetails extends Component{
                 <TouchableOpacity
                     activeOpacity={.8}
                     style={[ styles.button,{ backgroundColor: darkgray }]}
+                    onPress={() => navigation.navigate('Quiz', { deck })}
                 >
                     <View>
                         <Text style={{ color: white }}>

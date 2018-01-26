@@ -1,7 +1,11 @@
 import React from 'react'
+
 import { StackNavigator } from 'react-navigation'
+
 import Home from '../screens/Home';
 import DeckDetails from '../screens/DeckDetails';
+import Quiz from '../screens/Quiz';
+
 import { blue, lightblue, white, darkgray } from '../helpers/Colors';
 
 const Stack = StackNavigator({
@@ -13,6 +17,12 @@ const Stack = StackNavigator({
     },
     DeckDetails: {
         screen: DeckDetails
+    },
+    Quiz: {
+        screen: Quiz,
+        navigationOptions: {
+            title: 'Quiz'
+        }
     }
 },{
     navigationOptions: {
