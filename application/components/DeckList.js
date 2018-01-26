@@ -2,11 +2,12 @@ import React from 'react'
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native'
 import { white, blue, black, gray } from '../helpers/Colors';
 
-function Deck ({ deck }){
+function Deck ({ deck, showDeck }){
     return (
         <TouchableOpacity
             style={{ height: 100 }}
             activeOpacity={.8}
+            onPress={() => showDeck(deck) }
         >
             <View style={styles.deck}>
                 <Text style={styles.deckTitle}>
@@ -18,12 +19,12 @@ function Deck ({ deck }){
     )
 }
 
-export default DeckList = ({ decks }) => {
+export default DeckList = ({ decks, showDeck }) => {
     return (
         <View style={styles.deckList}>
             {
                 Object.keys(decks).map(deck =>
-                    (<Deck key={deck} deck={decks[deck]}/>))
+                    (<Deck key={deck} deck={decks[deck]} showDeck={showDeck} />))
             }
         </View>
     )

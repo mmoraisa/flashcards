@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 
-import Menu from '../components/Menu'
 import StatusBar from '../components/FlashStatusBar'
 import { black } from '../helpers/Colors';
+import Stack from '../components/Stack';
 
 class Main extends Component {
     render () {
@@ -13,7 +13,7 @@ class Main extends Component {
                     backgroundColor={black}
                     barStyle='light-content'
                 />
-                <Menu />
+                <Stack />
             </View>
         )
     }
