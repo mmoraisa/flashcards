@@ -4,7 +4,10 @@ import { white, blue, black, gray } from '../helpers/Colors';
 
 function Deck ({ deck }){
     return (
-        <TouchableOpacity style={{ height: 100 }}>
+        <TouchableOpacity
+            style={{ height: 100 }}
+            activeOpacity={.8}
+        >
             <View style={styles.deck}>
                 <Text style={styles.deckTitle}>
                     {deck.title}
@@ -19,9 +22,8 @@ export default DeckList = ({ decks }) => {
     return (
         <View style={styles.deckList}>
             {
-                Object.keys(decks).map(deck => {
-                    return (<Deck key={deck} deck={decks[deck]}/>)
-                })
+                Object.keys(decks).map(deck =>
+                    (<Deck key={deck} deck={decks[deck]}/>))
             }
         </View>
     )
