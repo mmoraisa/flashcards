@@ -1,6 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native'
 import { white, blue, black, gray } from '../helpers/Colors';
+import CardCount from './CardCount';
 
 function Deck ({ deck, showDeck }){
     return (
@@ -13,7 +14,7 @@ function Deck ({ deck, showDeck }){
                 <Text style={styles.deckTitle}>
                     {deck.title}
                 </Text>
-                <Text style={styles.deckQuestionsCount}>{deck.questions.length} cards</Text>
+                <CardCount countTo={deck.questions.length} style={styles.deckQuestionsCount}/>
             </View>
         </TouchableOpacity>
     )

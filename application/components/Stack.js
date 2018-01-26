@@ -2,11 +2,14 @@ import React from 'react'
 import { StackNavigator } from 'react-navigation'
 import Home from '../screens/Home';
 import DeckDetails from '../screens/DeckDetails';
-import { blue, lightblue, white } from '../helpers/Colors';
+import { blue, lightblue, white, darkgray } from '../helpers/Colors';
 
 const Stack = StackNavigator({
     Home: {
-        screen: Home
+        screen: Home,
+        navigationOptions: {
+            header: null
+        }
     },
     DeckDetails: {
         screen: DeckDetails
@@ -15,7 +18,7 @@ const Stack = StackNavigator({
     navigationOptions: {
         headerTintColor: white,
         headerStyle: {
-            backgroundColor: blue
+            backgroundColor: darkgray
         }
     }
 })
