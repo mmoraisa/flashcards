@@ -50,10 +50,9 @@ function saveDecks(decks){
 
 async function addCardToDeck(card,deck){
     deck.questions.push(card)
-    const decks = await getDecks()
-    decks[deck.title] = deck
-
-    return saveDecks(decks)
+    return AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, JSON.stringify({
+        [deck.title]: deck,
+    }))
 }
 
 export { getDecks, addDeck, setInitialDecks, addCardToDeck }

@@ -3,25 +3,27 @@ import { ADD_CARD, ADD_DECK, LOAD_DECKS } from '../actions/actionTypes'
 const INITIAL_STATE = {}
 
 function decksReducer(state = INITIAL_STATE, action){
+    const { deck, card } = action
+
     switch(action.type){
         case ADD_CARD:
             return {
                 ...state,
-                [action.deck.title]: {
-                    ...state[action.deck.title],
+                [deck.title]: {
+                    ...state[deck.title],
                     questions: [
-                        ...state[action.deck.title]['questions'],
-                        action.card
+                        ...state[deck.title]['questions'],
+                        card
                     ]
                 }
             }
         case ADD_DECK:
-            if(state.hasOwnProperty(action.deck.title)){
+            if(state.hasOwnProperty(deck.title)){
                 return state
             } else{
                 return {
                     ...state,
-                    [action.deck.title]: action.deck
+                    [deck.title]: deck
                 }
             }
         case LOAD_DECKS:

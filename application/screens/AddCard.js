@@ -38,10 +38,7 @@ class AddCard extends Component{
         addCardToDeck(card, deck)
             .then(() => {
                 addCard(card, deck)
-                getDecks()
-                    .then(loadDecks)
-                    .then(() => { navigation.dispatch(NavigationActions.back()) })
-                    .catch((err) => console.log(err))
+                navigation.dispatch(NavigationActions.back())
             })
             .catch((err) => console.log(err))
     }
