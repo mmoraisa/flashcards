@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 import { white, darkgray } from '../helpers/Colors'
+import { addCardToDeck } from '../actions'
 
 class AddCard extends Component{
 
@@ -23,13 +24,14 @@ class AddCard extends Component{
 
     submit = () => {
         const { question, answer } = this.state
-
-        alert(question)
+        const { deck } = this.props.navigation.state.params
+        addCardToDeck({ question, answer }, deck.title)
     }
 
     render () {
         return (
             <View>
+                <Text>{JSON.stringify()}</Text>
                 <View
                     style={[ styles.input, { marginTop: 40 }]}>
                     <TextInput

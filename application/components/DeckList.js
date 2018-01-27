@@ -24,8 +24,9 @@ export default DeckList = ({ decks, showDeck }) => {
     return (
         <View style={styles.deckList}>
             {
-                Object.keys(decks).map(deck =>
-                    (<Deck key={deck} deck={decks[deck]} showDeck={showDeck} />))
+                Object.keys(decks).map(deck => {
+                    return (<Deck key={deck} deck={decks[deck]} showDeck={showDeck} />)
+                })
             }
         </View>
     )

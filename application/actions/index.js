@@ -1,28 +1,27 @@
-const decks = {
-    React: {
-        title: 'React',
-        questions: [
-            {
-                question: 'What is React?',
-                answer: 'A library for managing user interfaces'
-            },
-            {
-                question: 'Where do you make Ajax requests in React?',
-                answer: 'The componentDidMount lifecycle event'
-            }
-        ]
-    },
-    JavaScript: {
-        title: 'JavaScript',
-        questions: [
-            {
-                question: 'What is a closure?',
-                answer: 'The combination of a function and the lexical environment within which that function was declared.'
-            }
-        ]
+import { AsyncStorage } from 'react-native'
+import { FLASHCARDS_STORAGE_KEY } from '../helpers/Config'
+import { ADD_CARD, ADD_DECK, LOAD_DECKS } from '../actions/actionTypes'
+
+function addCard(card,deck){
+    return {
+        type: ADD_CARD,
+        deck,
+        cart
     }
 }
 
-export function getDecks(){
-    return decks
+function addDeck(deck){
+    return {
+        type: ADD_DECK,
+        deck
+    }
 }
+
+function loadDecks(state){
+    return {
+        type: LOAD_DECKS,
+        state
+    }
+}
+
+export { addCard, addDeck, loadDecks }

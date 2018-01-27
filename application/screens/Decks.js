@@ -1,19 +1,22 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, AsyncStorage } from 'react-native'
 import ScreensStyleSheet from '../helpers/ScreensStyleSheet'
-import { getDecks } from '../actions/index'
+import { getDecks, setInitialDecks } from '../helpers/AsyncStorageControl'
 import DeckList from '../components/DeckList'
+import { FLASHCARDS_STORAGE_KEY } from '../helpers/Config';
+
+import { connect } from 'react-redux'
+import { loadDecks } from '../actions'
 
 class Decks extends Component{
 
-    state = {
-        decks: []
-    }
-
     componentWillMount () {
-        this.setState({
-            decks: getDecks()
-        })
+        const { loadDecks } = this.props
+     
+        setInitialDecks()
+            .then(getDecks)
+            .then(loadDecks)
+            .catch((err) => console.log(err))
     }
 
     showDeck = (deck) => {
@@ -22,7 +25,7 @@ class Decks extends Component{
     }
 
     render () {
-        const { decks } = this.state
+        const { decks } = this.props
 
         return (
             <View style={ScreensStyleSheet.body}>
@@ -32,4 +35,12 @@ class Decks extends Component{
     }
 }
 
-export default Decks
+function mapStateToProps(decks){
+    return {
+        decks
+    }
+}
+
+export default connect(mapStateToProps,{
+    loadDecks
+})(Decks)
