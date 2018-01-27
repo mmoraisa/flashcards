@@ -40,8 +40,10 @@ function getDecks() {
         .then(JSON.parse)
 }
 
-function addDeck(deck){
-    return AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(deck))
+function addDeckToStorage(deck){
+    return AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, JSON.stringify({
+        [deck.title]: deck
+    }))
 }
 
 function saveDecks(decks){
@@ -55,4 +57,4 @@ async function addCardToDeck(card,deck){
     }))
 }
 
-export { getDecks, addDeck, setInitialDecks, addCardToDeck }
+export { getDecks, addDeckToStorage, setInitialDecks, addCardToDeck }

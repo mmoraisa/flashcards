@@ -12,8 +12,7 @@ function decksReducer(state = INITIAL_STATE, action){
                 [deck.title]: {
                     ...state[deck.title],
                     questions: [
-                        ...state[deck.title]['questions'],
-                        card
+                        ...state[deck.title]['questions']
                     ]
                 }
             }

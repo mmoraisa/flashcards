@@ -68,7 +68,7 @@ class AddCard extends Component{
                     onPress={this.submit}
                     >
                     <View>
-                        <Text style={{ color: white }}>
+                        <Text style={{ color: white, textAlign: 'center' }}>
                             Submit
                         </Text>
                     </View>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native'
+import { TouchableOpacity, View, ScrollView, Text, StyleSheet } from 'react-native'
 import { white, blue, black, gray } from '../helpers/Colors';
 import CardCount from './CardCount';
 
@@ -22,20 +22,19 @@ function Deck ({ deck, showDeck }){
 
 export default DeckList = ({ decks, showDeck }) => {
     return (
-        <View style={styles.deckList}>
+        <ScrollView style={styles.deckList}>
             {
                 Object.keys(decks).map(deck => {
                     return (<Deck key={deck} deck={decks[deck]} showDeck={showDeck} />)
                 })
             }
-        </View>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     deckList: {
-        flex: 1,
-        justifyContent: 'flex-start'
+        flex: 1
     },
     deck: {
         flex: 1,
