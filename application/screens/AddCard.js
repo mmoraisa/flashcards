@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 import { white, darkgray } from '../helpers/Colors'
-import { addCardToDeck } from '../actions'
+import { addCardToDeck, getDecks } from '../helpers/AsyncStorageControl'
+import { NavigationActions } from 'react-navigation'
+import { connect } from 'react-redux'
+import { loadDecks } from '../actions'
 
 class AddCard extends Component{
 
@@ -22,16 +25,21 @@ class AddCard extends Component{
         })
     }
 
-    submit = () => {
+    submit = () =>{
         const { question, answer } = this.state
-        const { deck } = this.props.navigation.state.params
-        addCardToDeck({ question, answer }, deck.title)
+        const { navigation } = this.props
+        const { deck } = navigation.state.params
+        
+        addCardToDeck({ question, answer }, deck)
+            .then(getDecks)
+            .then(loadDecks)
+            .then(() => { navigation.dispatch(NavigationActions.back()) })
+            .catch((err) => console.log(err))
     }
 
     render () {
         return (
             <View>
-                <Text>{JSON.stringify()}</Text>
                 <View
                     style={[ styles.input, { marginTop: 40 }]}>
                     <TextInput
@@ -81,4 +89,12 @@ const styles = StyleSheet.create({
     }
 })
 
-export default AddCard
+function mapStateToProps(decks) {
+    return {
+        decks
+    }
+}
+
+export default connect(mapStateToProps,{
+    loadDecks
+})(AddCard)

@@ -29,9 +29,8 @@ const INITIAL_DECKS = {
 function setInitialDecks() {
     return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
         .then((decks) => {
-            if(!decks){
-                return AsyncStorage.setItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(INITIAL_DECKS))
-            }
+            if(!decks)
+                return saveDecks(INITIAL_DECKS)
         })
 }
 
@@ -44,4 +43,16 @@ function addDeck(deck){
     return AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(deck))
 }
 
-export { getDecks, addDeck, setInitialDecks }
+function saveDecks(decks){
+    return AsyncStorage.setItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(decks))
+}
+
+async function addCardToDeck(card,deck){
+    deck.questions.push(card)
+    const decks = await getDecks()
+    decks[deck.title] = deck
+
+    return saveDecks(decks)
+}
+
+export { getDecks, addDeck, setInitialDecks, addCardToDeck }

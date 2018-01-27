@@ -4826,9 +4826,9 @@ react-native-vector-icons@4.4.2:
     prop-types "^15.5.10"
     yargs "^8.0.2"
 
-react-native@0.52.0:
-  version "0.52.0"
-  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.52.0.tgz#9784663a2aa40b30c87d4c9c06ef26cf8d419d91"
+react-native@0.52.2:
+  version "0.52.2"
+  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.52.2.tgz#1ae9a4c4441bd6e54a8ffc8aae4ac2b5c7cccd68"
   dependencies:
     absolute-path "^0.0.0"
     art "^0.10.0"
@@ -5018,6 +5018,10 @@ redux-logger@^2.7.4:
   resolved "https://registry.yarnpkg.com/redux-logger/-/redux-logger-2.10.2.tgz#3c5a5f0a6f32577c1deadf6655f257f82c6c3937"
   dependencies:
     deep-diff "0.3.4"
+
+redux-thunk@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.2.0.tgz#e615a16e16b47a19a515766133d1e3e99b7852e5"
 
 redux@^3.6.0, redux@^3.7.2:
   version "3.7.2"
