@@ -1,5 +1,14 @@
 {
   "expo": {
-    "sdkVersion": "25.0.0"
+    "sdkVersion": "25.0.0",
+    "orientation": "portrait",
+    "name": "Udacifitness",
+    "description": "The best triathlon training app in the world.",
+    "slug": "udacifitness",
+    "version": "1.0",
+    "icon": "https://cdn1.iconfinder.com/data/icons/education-vol-2-1/64/091-512.png",
+    "android": {
+     "package": "org.flashcards.exp"
+    }
   }
 }
