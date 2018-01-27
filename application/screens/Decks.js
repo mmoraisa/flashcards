@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import { Text, View, AsyncStorage } from 'react-native'
-import ScreensStyleSheet from '../helpers/ScreensStyleSheet'
-import { getDecks, setInitialDecks } from '../helpers/AsyncStorageControl'
-import DeckList from '../components/DeckList'
-import { FLASHCARDS_STORAGE_KEY } from '../helpers/Config';
-
 import { connect } from 'react-redux'
+
+import { View, AsyncStorage } from 'react-native'
+
+import DeckList from '../components/DeckList'
+
+import { getDecks, setInitialDecks } from '../helpers/AsyncStorageControl'
 import { loadDecks } from '../actions'
+
+import ScreensStyleSheet from '../helpers/ScreensStyleSheet'
 
 class Decks extends Component{
 
@@ -21,7 +23,7 @@ class Decks extends Component{
 
     showDeck = (deck) => {
         const { stack } = this.props.screenProps
-        stack.navigate('DeckDetails', { deck })
+        stack.navigate('DeckDetails', { deckTitle: deck.title })
     }
 
     render () {

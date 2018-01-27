@@ -29,6 +29,7 @@ const INITIAL_DECKS = {
 function setInitialDecks() {
     return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
         .then((decks) => {
+            //if(decks) AsyncStorage.clear()
             if(!decks)
                 return saveDecks(INITIAL_DECKS)
         })

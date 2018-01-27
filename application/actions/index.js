@@ -6,7 +6,7 @@ function addCard(card,deck){
     return {
         type: ADD_CARD,
         deck,
-        cart
+        card
     }
 }
 

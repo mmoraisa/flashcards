@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
-import { white, darkgray } from '../helpers/Colors'
-import { addCardToDeck, getDecks } from '../helpers/AsyncStorageControl'
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
-import { loadDecks } from '../actions'
+
+import { addCardToDeck, getDecks } from '../helpers/AsyncStorageControl'
+import { loadDecks, addCard } from '../actions'
+
+import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
+
+import { white, darkgray } from '../helpers/Colors'
 
 class AddCard extends Component{
 
@@ -27,13 +30,19 @@ class AddCard extends Component{
 
     submit = () =>{
         const { question, answer } = this.state
-        const { navigation } = this.props
+        const { navigation, loadDecks, addCard } = this.props
         const { deck } = navigation.state.params
         
-        addCardToDeck({ question, answer }, deck)
-            .then(getDecks)
-            .then(loadDecks)
-            .then(() => { navigation.dispatch(NavigationActions.back()) })
+        const card = { question, answer }
+
+        addCardToDeck(card, deck)
+            .then(() => {
+                addCard(card, deck)
+                getDecks()
+                    .then(loadDecks)
+                    .then(() => { navigation.dispatch(NavigationActions.back()) })
+                    .catch((err) => console.log(err))
+            })
             .catch((err) => console.log(err))
     }
 
@@ -96,5 +105,6 @@ function mapStateToProps(decks) {
 }
 
 export default connect(mapStateToProps,{
-    loadDecks
+    loadDecks,
+    addCard
 })(AddCard)

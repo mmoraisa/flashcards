@@ -7,10 +7,10 @@ function decksReducer(state = INITIAL_STATE, action){
         case ADD_CARD:
             return {
                 ...state,
-                [action.title]: {
-                    ...state[action.title],
+                [action.deck.title]: {
+                    ...state[action.deck.title],
                     questions: [
-                        ...state[action.title]['questions'],
+                        ...state[action.deck.title]['questions'],
                         action.card
                     ]
                 }

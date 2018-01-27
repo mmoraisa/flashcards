@@ -1,18 +1,24 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { darkgray, gray, white } from '../helpers/Colors'
+import { connect } from 'react-redux'
+
 import CardCount from '../components/CardCount'
+
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+
+import { darkgray, gray, white } from '../helpers/Colors'
 import { FontAwesome, Entypo } from '@expo/vector-icons'
 
 class DeckDetails extends Component{
     static navigationOptions = ({ navigation }) => {
-        const { deck } = navigation.state.params
-        return { title: deck.title }
+        const { deckTitle } = navigation.state.params
+        return { title: deckTitle }
     }
 
     render () {
-        const { navigation } = this.props
-        const { deck } = navigation.state.params
+        const { navigation, decks = [] } = this.props
+        const { deckTitle } = navigation.state.params
+
+        const deck = decks[deckTitle]
 
         return (
             <View>
@@ -75,4 +81,10 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DeckDetails
+function mapStateToProps(decks){
+    return {
+        decks
+    }
+}
+
+export default connect(mapStateToProps)(DeckDetails)
