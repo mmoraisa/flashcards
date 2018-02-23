@@ -20,7 +20,7 @@ class NewDeck extends Component{
 
     submit = () => {
         const { deckTitle } = this.state
-        const { addDeck, navigation } = this.props
+        const { addDeck, navigation, screenProps } = this.props
 
         if(deckTitle.length == 0){
             alert('You need to fill the deck title before submit')
@@ -35,7 +35,8 @@ class NewDeck extends Component{
                 this.setState({
                     deckTitle: ''
                 })
-                navigation.navigate('Decks')
+                screenProps.stack.navigate('DeckDetails', { deckTitle: deck.title })
+                setTimeout(() => { navigation.navigate('Decks') }, 500)
             })
     }
 
