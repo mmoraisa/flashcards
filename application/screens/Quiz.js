@@ -3,6 +3,82 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import { red, green, white, darkgray, black } from '../helpers/Colors';
 
+function finishedQuiz(result, deck, restartQuiz, navigation){
+    return (
+        <View>
+            <View style={styles.scoreInfo}>
+                <Text style={styles.scoreText}>Score</Text>
+                <Text style={styles.score}>{ result.filter(_ => _.correct).length }/{ deck.questions.length }</Text>
+            </View>
+            <TouchableOpacity
+                activeOpacity={.8}
+                style={[ styles.button, { borderColor: darkgray, borderWidth: 1 } ]}
+                onPress={restartQuiz} >
+                <View>
+                    <Text style={{ textAlign: 'center' }}>
+                        Restart Quiz
+                    </Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+                activeOpacity={.8}
+                style={[ styles.button,{ backgroundColor: darkgray }]}
+                onPress={() => { navigation.dispatch(NavigationActions.back()) }} >
+                <View>
+                    <Text style={{ color: white, textAlign: 'center' }}>
+                        Back to Deck
+                    </Text>
+                </View>
+            </TouchableOpacity>
+        </View>
+    )
+}
+
+function inProgressQuiz(deck, currentQuestion, showingAnswer, toggleAnswer, reportAnswer){
+    return (
+        <View>
+            <Text style={styles.questionsCount}>{currentQuestion + 1}/{deck.questions.length}</Text>
+            <View style={styles.questionInfo}>
+                <Text style={styles.questionAndAnswer}>
+                    {
+                        currentQuestion !== null &&
+                        (
+                            showingAnswer
+                            ? deck.questions[currentQuestion].answer
+                            : deck.questions[currentQuestion].question
+                        )
+                    }
+                </Text>
+                <TouchableOpacity
+                    activeOpacity={.8}
+                    onPress={toggleAnswer} >
+                    <Text style={styles.buttonToggleAnswer}>{(showingAnswer ? 'Question' : 'Answer')}</Text>
+                </TouchableOpacity>
+            </View>
+            <TouchableOpacity
+                activeOpacity={.8}
+                style={[ styles.button,{ backgroundColor: green }]}
+                onPress={() => { reportAnswer(true) }} >
+                <View>
+                    <Text style={{ color: white, textAlign: 'center' }}>
+                        Correct
+                    </Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+                activeOpacity={.8}
+                style={[ styles.button,{ backgroundColor: red }]}
+                onPress={() => { reportAnswer(false) }} >
+                <View>
+                    <Text style={{ color: white, textAlign: 'center' }}>
+                        Incorrect
+                    </Text>
+                </View>
+            </TouchableOpacity>
+        </View>
+    )
+}
+
 class Quiz extends Component{
 
     state = {
@@ -69,76 +145,8 @@ class Quiz extends Component{
             <View>
                 {
                     finished
-                    ? (
-                        <View>
-                            <View style={styles.scoreInfo}>
-                                <Text style={styles.scoreText}>Score</Text>
-                                <Text style={styles.score}>{ result.filter(_ => _.correct).length }/{ deck.questions.length }</Text>
-                            </View>
-                            <TouchableOpacity
-                                activeOpacity={.8}
-                                style={[ styles.button, { borderColor: darkgray, borderWidth: 1 } ]}
-                                onPress={this.restartQuiz} >
-                                <View>
-                                    <Text style={{ textAlign: 'center' }}>
-                                        Restart Quiz
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                activeOpacity={.8}
-                                style={[ styles.button,{ backgroundColor: darkgray }]}
-                                onPress={() => { navigation.dispatch(NavigationActions.back()) }} >
-                                <View>
-                                    <Text style={{ color: white, textAlign: 'center' }}>
-                                        Back to Deck
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    )
-                    : (
-                        <View>
-                            <Text style={styles.questionsCount}>{currentQuestion + 1}/{deck.questions.length}</Text>
-                            <View style={styles.questionInfo}>
-                                <Text style={styles.questionAndAnswer}>
-                                    { 
-                                        currentQuestion !== null && 
-                                        (
-                                            showingAnswer
-                                            ? deck.questions[currentQuestion].answer
-                                            : deck.questions[currentQuestion].question
-                                        )
-                                    }
-                                </Text>
-                                <TouchableOpacity
-                                    activeOpacity={.8}
-                                    onPress={this.toggleAnswer} >
-                                    <Text style={styles.buttonToggleAnswer}>{(showingAnswer ? 'Question' : 'Answer')}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity
-                                activeOpacity={.8}
-                                style={[ styles.button,{ backgroundColor: green }]}
-                                onPress={() => { this.reportAnswer(true) }} >
-                                <View>
-                                    <Text style={{ color: white, textAlign: 'center' }}>
-                                        Correct
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                activeOpacity={.8}
-                                style={[ styles.button,{ backgroundColor: red }]}
-                                onPress={() => { this.reportAnswer(false) }} >
-                                <View>
-                                    <Text style={{ color: white, textAlign: 'center' }}>
-                                        Incorrect
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    )
+                    ? finishedQuiz(result,deck,this.restartQuiz,navigation)
+                    : inProgressQuiz(deck,currentQuestion,showingAnswer,this.toggleAnswer,this.reportAnswer)
                 }
             </View>
         )
