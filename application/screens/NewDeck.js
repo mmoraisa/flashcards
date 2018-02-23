@@ -22,6 +22,11 @@ class NewDeck extends Component{
         const { deckTitle } = this.state
         const { addDeck, navigation } = this.props
 
+        if(deckTitle.length == 0){
+            alert('You need to fill the deck title before submit')
+            return false
+        }
+
         const deck = { title: deckTitle, questions: [] }
 
         addDeckToStorage(deck)
