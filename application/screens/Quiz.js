@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import { red, green, white, darkgray, black } from '../helpers/Colors';
+import { clearLocalNotification, setLocalNotification } from '../helpers/Notifications'
 
-function finishedQuiz(result, deck, restartQuiz, navigation){
+function finishedQuiz(result, deck, restartQuiz, navigation) {
     return (
         <View>
             <View style={styles.scoreInfo}>
@@ -34,7 +35,7 @@ function finishedQuiz(result, deck, restartQuiz, navigation){
     )
 }
 
-function inProgressQuiz(deck, currentQuestion, showingAnswer, toggleAnswer, reportAnswer){
+function inProgressQuiz(deck, currentQuestion, showingAnswer, toggleAnswer, reportAnswer) {
     return (
         <View>
             <Text style={styles.questionsCount}>{currentQuestion + 1}/{deck.questions.length}</Text>
@@ -111,6 +112,14 @@ class Quiz extends Component{
     reportAnswer = (correct) => {
         const { deck } = this.props.navigation.state.params
         this.setState(prevState => {
+
+            let finished = prevState.currentQuestion + 1 >= deck.questions.length
+
+            if(finished){
+                clearLocalNotification()
+                    .then(setLocalNotification)
+            }
+
             return {
                 currentQuestion: prevState.currentQuestion + 1 >= deck.questions.length
                                     ? null
@@ -122,7 +131,7 @@ class Quiz extends Component{
                     }
                 ]),
                 showingAnswer: false,
-                finished: prevState.currentQuestion + 1 >= deck.questions.length
+                finished
             }
         })
     }
