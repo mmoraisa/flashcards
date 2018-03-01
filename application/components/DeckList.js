@@ -1,6 +1,6 @@
 import React from 'react'
 import { TouchableOpacity, View, ScrollView, Text, StyleSheet } from 'react-native'
-import { white, blue, black, gray } from '../helpers/Colors';
+import { white, blue, black, gray, lightblue } from '../helpers/Colors';
 import CardCount from './CardCount';
 
 function Deck ({ deck, showDeck }){
@@ -20,16 +20,31 @@ function Deck ({ deck, showDeck }){
     )
 }
 
-export default DeckList = ({ decks, showDeck }) => {
+function noDecks (){
     return (
-        <ScrollView style={styles.deckList}>
-            {
-                Object.keys(decks).map(deck => {
-                    return (<Deck key={deck} deck={decks[deck]} showDeck={showDeck} />)
-                })
-            }
-        </ScrollView>
+        <View style={styles.noDecks}>
+            <Text style={styles.noDecksText}>
+                No decks created yet
+            </Text>
+        </View>
     )
+}
+
+export default DeckList = ({ navigation, decks, showDeck }) => {
+    const deckList = Object.keys(decks)
+    if(deckList.length == 0){
+        return noDecks(navigation)
+    } else{
+        return (
+            <ScrollView style={styles.deckList}>
+                {
+                    deckList.map(deck => {
+                        return (<Deck key={deck} deck={decks[deck]} showDeck={showDeck} />)
+                    })
+                }
+            </ScrollView>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
@@ -53,5 +68,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: gray,
         textAlign: 'center'
+    },
+    noDecks: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    noDecksText: {
+        textAlign: 'center',
+        fontSize: 16
     }
 })
