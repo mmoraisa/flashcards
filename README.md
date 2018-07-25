@@ -3,7 +3,7 @@
 
 Flashcards App built with React Native and Redux, using Expo. Flashcards helps users study any subject through spaced repetition.
 
-![Flashcards](https://s3.amazonaws.com/in3d-site/portfolio/prj_flashcards.jpg "Flashcards")
+![Flashcards](https://s3.amazonaws.com/in3d-site/portfolio/prj_flashcards.png "Flashcards")
 
 # How to run?
 
